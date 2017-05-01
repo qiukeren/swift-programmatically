@@ -59,7 +59,7 @@ class Item2ViewController: UIViewController {
 ## Effective NavigationController (implements a multi-level nav controller)
 
 
-```
+```swift
 import UIKit
 
 class ViewController: UINavigationController {
