@@ -8,6 +8,23 @@ This repo was inspired by [lanqy/swift-programmatically](https://github.com/lanq
 
 I am focusing on making effective `ViewController`.
 
+## Basis
+
+I provide executable Controller named `ViewController`, to use this, just follow the under steps:
+
+1. Delete Main.storyboard
+2. Choose NONE in General - Deployment info - Main Interface
+3. Just modify your AppDelegate like this:
+
+```swift
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = ViewController()
+        window?.makeKeyAndVisible()
+        return true
+    }
+```
+
 
 ## UITabBarController demo (like the buttom of App Store)
 
@@ -98,6 +115,59 @@ class Item3ViewController: UIViewController {
         view.backgroundColor = UIColor.black
         self.title = "item3"
         print("item 3 loaded")
+    }
+}
+```
+
+
+## SearchBar in NavigationBar (combined with a Navigation page)
+
+```swift
+import UIKit
+
+class ViewController: UINavigationController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let item1 = Item1ViewController()
+        let item2 = Item2ViewController()
+        let controllers = [item1,item2]
+        self.viewControllers=controllers
+    }
+}
+
+class Item1ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.green
+        self.title = "item1"
+        print("item 1 loaded")
+    }
+}
+
+class Item2ViewController: UIViewController, UISearchControllerDelegate, UISearchBarDelegate,UISearchResultsUpdating {
+    
+    var searchController : UISearchController!
+
+    func updateSearchResults( for searchController: UISearchController) {
+        print(searchController.searchBar.text ?? "ERROR")
+    }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.searchController = UISearchController(searchResultsController:  nil)
+        
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = true
+        
+        self.navigationItem.titleView = searchController.searchBar
+        
+        self.definesPresentationContext = true
     }
 }
 ```
