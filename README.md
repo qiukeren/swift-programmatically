@@ -54,3 +54,50 @@ class Item2ViewController: UIViewController {
     }
 }
 ```
+
+
+## Effective NavigationController (implements a multi-level nav controller)
+
+
+```
+import UIKit
+
+class ViewController: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let item1 = Item1ViewController()
+        let item2 = Item2ViewController()
+        let item3 = Item3ViewController()
+        let controllers = [item1,item2,item3]
+        self.viewControllers=controllers
+    }
+}
+
+class Item1ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.green
+        self.title = "item1"
+        print("item 1 loaded")
+    }
+}
+
+class Item2ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.red
+        self.title = "item2"
+        print("item 2 loaded")
+    }
+}
+
+class Item3ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.black
+        self.title = "item3"
+        print("item 3 loaded")
+    }
+}
+```
